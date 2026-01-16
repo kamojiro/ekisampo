@@ -1,24 +1,44 @@
-import { useState } from 'react'
-import './App.css'
+import { Loader2 } from 'lucide-react'
+import { MapContainer } from '@/components/Map/MapContainer'
+import { Toolbar } from '@/components/Toolbar'
+import { ResultPanel } from '@/components/ResultPanel'
+import { useStations } from '@/hooks/useStations'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { isLoading, error } = useStations()
+
+  if (isLoading) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-2 text-blue-500" />
+          <p className="text-muted-foreground">駅データを読み込み中...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
+        <div className="text-center text-red-500">
+          <p className="font-semibold">エラーが発生しました</p>
+          <p className="text-sm">{error}</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+    <div className="h-screen w-screen flex flex-col">
+      <Toolbar />
+      <div className="flex-1 flex min-h-0">
+        <div className="flex-1">
+          <MapContainer />
+        </div>
+        <ResultPanel />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
