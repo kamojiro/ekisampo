@@ -30,12 +30,14 @@ function App() {
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col">
+    <div className="h-screen w-screen flex flex-col overflow-hidden">
       <Toolbar />
-      <div className="flex-1 flex min-h-0">
-        <div className="flex-1">
+      <div className="flex-1 flex min-h-0 relative">
+        {/* Map takes full width on mobile, flex-1 on desktop */}
+        <div className="flex-1 max-md:w-full">
           <MapContainer />
         </div>
+        {/* ResultPanel is a bottom sheet on mobile, side panel on desktop */}
         <ResultPanel />
       </div>
     </div>

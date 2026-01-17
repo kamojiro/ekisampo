@@ -23,6 +23,14 @@
   --color-input: hsl(214.3 31.8% 91.4%);
   --color-ring: hsl(222.2 84% 4.9%);
   --radius: 0.5rem;
+
+  /* Route line badge colors */
+  --color-line-blue: hsl(217 91% 60%);
+  --color-line-green: hsl(142 71% 45%);
+  --color-line-orange: hsl(25 95% 53%);
+  --color-line-red: hsl(0 84% 60%);
+  --color-line-purple: hsl(262 83% 58%);
+  --color-line-yellow: hsl(45 93% 47%);
 }
 
 body {
@@ -56,4 +64,117 @@ body {
 }
 .leaflet-control {
   z-index: 800;
+}
+
+/* Animations */
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-slide-out-right {
+  animation: slide-out-right 0.2s ease-out forwards;
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 0.3s ease-out forwards;
+}
+
+/* Button hover scale */
+.btn-hover-scale {
+  transition: transform 0.15s ease-out;
+}
+.btn-hover-scale:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+.btn-hover-scale:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Selected station card gradient */
+.station-card-gradient {
+  background: linear-gradient(135deg, hsl(217 91% 60% / 0.1) 0%, hsl(262 83% 58% / 0.1) 100%);
+  border: 1px solid hsl(217 91% 60% / 0.3);
+}
+
+/* Line badge colors */
+.line-badge {
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+}
+.line-badge-0 { background-color: hsl(217 91% 95%); color: hsl(217 91% 40%); }
+.line-badge-1 { background-color: hsl(142 71% 95%); color: hsl(142 71% 30%); }
+.line-badge-2 { background-color: hsl(25 95% 95%); color: hsl(25 95% 35%); }
+.line-badge-3 { background-color: hsl(262 83% 95%); color: hsl(262 83% 40%); }
+.line-badge-4 { background-color: hsl(0 84% 95%); color: hsl(0 84% 40%); }
+.line-badge-5 { background-color: hsl(45 93% 95%); color: hsl(45 93% 30%); }
+
+/* Collapsible animation */
+.collapsible-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+}
+.collapsible-content.collapsed {
+  max-height: 0;
+  opacity: 0;
+}
+.collapsible-content.expanded {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* Bottom sheet for mobile */
+@media (max-width: 768px) {
+  .mobile-bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 1rem 1rem 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .mobile-bottom-sheet-handle {
+    width: 2.5rem;
+    height: 0.25rem;
+    background-color: hsl(214.3 31.8% 70%);
+    border-radius: 9999px;
+    margin: 0.5rem auto;
+  }
 }
